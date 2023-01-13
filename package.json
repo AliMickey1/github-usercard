@@ -1,7 +1,7 @@
 {
   "name": "github-usercard",
   "version": "1.0.0",
-  "scripts": {
+   "scripts": {
     "start": "parcel index.html"
   },
   "repository": {
@@ -19,5 +19,8 @@
     "eslint": "^8.10.0",
     "parcel-bundler": "^1.12.4"
   },
-  "dependencies": {}
+  "dependencies": { 
+    "type": "module",
+    "axios": "^1.2.2"
+  }
 }
