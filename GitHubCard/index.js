@@ -1,9 +1,25 @@
+import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
 
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell', 'AliMickey1'];
+
+
+for(let i = 0; i < followersArray.length; i++)
+{
+  getUserCard(followersArray[i]);
+}
+
+function getUserCard(username){
+axios.get(`https://api.github.com/users/${username}`)
+  .then(resp => {
+    document.querySelector('.cards').appendChild(userCard(resp.data));
+  })
+  .catch(err => console.error(err))
+}
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,7 +44,7 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -47,9 +63,53 @@ const followersArray = [];
         <p>Following: {users following count}</p>
         <p>Bio: {users bio}</p>
       </div>
-    </div>
-*/
+//     </div>
+// */
 
+function userCard (info)
+{
+  const card = document.createElement('div');
+  const image = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const profileLink = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+card.classList.add('card');
+cardInfo.classList.add('card-info');
+name.classList.add('name');
+userName.classList.add('username');
+
+  image.src = info.avatar_url;
+  image.alt = 'github user';
+  name.textContent = info.name;
+  userName.textContent = info.login;
+  location.textContent = info.location;
+  profile.textContent = "Profile";
+  profileLink.textContent = "Link to Profile";
+  profileLink.href = info.html_url;
+  followers.textContent = `Followers: ${info.followers}`;
+  following.textContent = `Following: ${info.following}`;
+  bio.textContent = info.bio;
+
+  card.appendChild(image);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(profileLink);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+  return card;
+}
 /*
   List of LS Instructors Github username's:
     tetondan
@@ -58,3 +118,4 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
